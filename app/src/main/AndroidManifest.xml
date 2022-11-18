@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.cindaku.holanear">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+            android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+            tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+            android:name="com.cindaku.holanear.BaseApp"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:requestLegacyExternalStorage="true"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:usesCleartextTraffic="true">
+        <activity
+                android:launchMode="singleInstance"
+                android:name="com.cindaku.holanear.activity.CallActivity"
+                android:theme="@style/Theme.HolaNear.Full" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="@string/API_KEY" />
+
+        <activity
+                android:name="com.cindaku.holanear.activity.ChooseLocationActivity"
+                android:label="@string/title_activity_choose_location"
+                android:theme="@style/Theme.HolaNear.Full">
+            <meta-data
+                    android:name="android.app.searchable"
+                    android:resource="@xml/searchable" />
+        </activity>
+
+        <service
+                android:name="com.cindaku.holanear.service.SIPService"
+                android:enabled="true"
+                android:exported="true" >
+            <intent-filter>
+                <action android:name="android.telecom.ConnectionService" />
+            </intent-filter>
+        </service>
+
+        <activity
+                android:name="com.cindaku.holanear.activity.ImagePreviewActivity"
+                android:theme="@style/Theme.HolaNear.Full" />
+        <activity
+                android:name="com.cindaku.holanear.activity.DetailChatActivity"
+                android:theme="@style/Theme.HolaNear.Full" />
+        <activity
+                android:name="com.cindaku.holanear.activity.ContactChooseActivity"
+                android:label="@string/title_activity_contact_choose"
+                android:theme="@style/Theme.HolaNear.Full" />
+
+        <service
+                android:name="com.cindaku.holanear.service.AuthService"
+                android:enabled="true"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.accounts.AccountAuthenticator"
+                    android:resource="@xml/authenticator" />
+        </service>
+
+        <provider
+                android:name="com.cindaku.holanear.provider.ContactContentProvider"
+                android:authorities="com.cindaku.holanear.provider"
+                android:exported="false"
+                android:syncable="true" />
+
+        <activity
+                android:name="com.cindaku.holanear.activity.VerifyActivity"
+                android:theme="@style/Theme.HolaNear.Full" />
+
+        <service
+                android:name="com.cindaku.holanear.service.XMPPService"
+                android:enabled="true"
+                android:exported="true">
+        </service>
+        <service
+                android:name="com.cindaku.holanear.service.SyncService"
+                android:enabled="true"
+                android:exported="true"
+                android:process=":sync">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.content.SyncAdapter"
+                    android:resource="@xml/syncadapter" />
+        </service>
+
+        <activity
+                android:name="com.cindaku.holanear.activity.LoginActivity"
+                android:label="@string/title_activity_login"
+                android:theme="@style/Theme.HolaNear.Full" />
+        <activity
+                android:name="com.cindaku.holanear.activity.ChatActivity"
+                android:label="@string/app_name"
+                android:theme="@style/Theme.HolaNear.Full" />
+        <activity
+                android:exported="true"
+                android:name="com.cindaku.holanear.activity.MainActivity"
+                android:theme="@style/Theme.HolaNear.Full">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver android:name="com.cindaku.holanear.receiver.OnBootReceiver"  android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <provider
+                android:name="com.cindaku.holanear.provider.FileProvider"
+                android:authorities="com.cindaku.holanear.provider"
+                android:grantUriPermissions="true"
+                android:exported="false">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/filepaths" />
+        </provider>
+    </application>
+
+</manifest>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/layoutMessage"
+    android:layout_marginTop="@dimen/margin_mini"
+    android:layout_marginBottom="@dimen/margin_mini"
+    android:padding="@dimen/padding_small"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+            android:layout_marginTop="@dimen/padding_medium"
+            android:visibility="gone"
+            android:text="@string/_20_december_2021"
+            android:layout_gravity="center"
+            android:background="@drawable/date_bg"
+            android:textColor="@color/white"
+            android:padding="@dimen/padding_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewDateHeader" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/layoutMainChat"
+                android:minWidth="150dp"
+                android:maxWidth="300dp"
+                android:background="@drawable/chat_bg"
+                android:padding="@dimen/padding_big"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start">
+                <LinearLayout
+                        app:layout_constraintWidth_max="280dp"
+                        android:id="@+id/replyWraper"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        app:layout_constraintHorizontal_weight="1"
+                        android:layout_height="wrap_content">
+                    <include layout="@layout/part_item_reply" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/replyWraper"
+                    android:id="@+id/attachmentLayout"
+                    android:background="@drawable/attachment_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <include layout="@layout/part_item_image" />
+                    <include layout="@layout/part_item_file" />
+                    <include layout="@layout/part_item_contact" />
+                    <include layout="@layout/part_item_location" />
+                    <include layout="@layout/part_item_video" />
+                </LinearLayout>
+
+                <ProgressBar
+                        app:layout_constraintStart_toStartOf="@+id/attachmentLayout"
+                        app:layout_constraintTop_toTopOf="@id/attachmentLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinnerDownload" />
+                <TextView
+                        app:layout_constraintWidth_max="280dp"
+                        android:textColor="@color/black"
+                        app:layout_constraintTop_toBottomOf="@id/attachmentLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:id="@+id/messageTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lorem" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/margin_small"
+                    app:layout_constraintTop_toBottomOf="@id/messageTextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/dateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_03_00" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                    android:layout_margin="@dimen/margin_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_forward"
+                    android:id="@+id/imageViewForward"
+                    app:layout_constraintStart_toEndOf="@+id/layoutMainChat"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/black" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

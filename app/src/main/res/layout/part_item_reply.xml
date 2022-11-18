@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layoutReply"
+        android:background="@color/grey"
+        android:orientation="horizontal"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <View
+            android:background="@color/secondary"
+            android:layout_width="4dp"
+            android:layout_height="match_parent" />
+
+    <LinearLayout
+            android:padding="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                    android:text="@string/alan_maulana_r"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/replyTextView" />
+
+            <TextView
+                    android:text="@string/lorem"
+                    android:maxLines="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/replySubTextView" />
+    </LinearLayout>
+</LinearLayout>

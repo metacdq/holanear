@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layoutLocation"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:paddingBottom="@dimen/margin_medium"
+        android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:tint="@color/black"
+            android:layout_margin="@dimen/margin_medium"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/ic_location"
+            android:id="@+id/imageViewLocationMarker"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/margin_medium"
+            android:text="@string/spbu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewLocationName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewLocationMarker" />
+
+    <TextView
+            android:textSize="11sp"
+            android:textStyle="italic"
+            android:text="@string/jl_d"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewLocationAddress"
+            app:layout_constraintTop_toBottomOf="@+id/textViewLocationName"
+            app:layout_constraintEnd_toEndOf="@+id/textViewLocationName"
+            app:layout_constraintStart_toStartOf="@+id/textViewLocationName"
+            tools:ignore="SmallSp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,119 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion 33
+    buildToolsVersion "33.0.0"
+
+    defaultConfig {
+        applicationId "com.kenulin.chatmessaging"
+        minSdkVersion 23
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        sourceSets {
+            main {
+                jniLibs.srcDirs = ['libs']
+            }
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+kapt {
+    generateStubs = true
+}
+configurations {
+    all*.exclude group: 'xpp3', module: 'xpp3'
+}
+dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    //noinspection GradleDependency
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    api 'androidx.activity:activity-ktx:1.6.1'
+    api 'androidx.fragment:fragment-ktx:1.5.4'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout-core:1.0.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    //Gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+    //Rx
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //Dependency Injection
+    implementation "com.google.dagger:dagger:2.44"
+    implementation "com.google.dagger:dagger-android:2.38"
+    implementation "com.google.dagger:dagger-android-support:2.38"
+    kapt "com.google.dagger:dagger-compiler:2.44"
+    kapt "com.google.dagger:dagger-android-processor:2.38"
+    //Smack
+    implementation 'org.igniterealtime.smack:smack-android:4.4.2'
+    implementation 'org.igniterealtime.smack:smack-tcp:4.4.2'
+    implementation 'org.igniterealtime.smack:smack-extensions:4.4.2'
+    implementation 'org.igniterealtime.smack:smack-core:4.4.2'
+    implementation 'org.igniterealtime.smack:smack-im:4.4.2'
+    implementation 'org.igniterealtime.smack:smack-legacy:4.4.2'
+    //Room
+    implementation "androidx.room:room-runtime:2.4.3"
+    kapt "androidx.room:room-compiler:2.4.3"
+    implementation "androidx.room:room-ktx:2.4.3"
+    testImplementation "androidx.room:room-testing:2.4.3"
+    //Country Chooser
+    implementation 'com.hbb20:ccp:2.4.7'
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:27.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    //Image And Video Picker
+    implementation  'io.ak1.pix:piximagepicker:1.6.3'
+    implementation 'com.github.Shouheng88:compressor:1.4.0'
+    //work manager
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+    androidTestImplementation "androidx.work:work-testing:2.7.1"
+    implementation "androidx.work:work-multiprocess:2.7.1"
+    //Video Player
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.1'
+    //Viode/Voice Call
+    implementation 'io.michaelrocks:libphonenumber-android:8.12.57'
+    debugImplementation "org.linphone:linphone-sdk-android-debug:5.0.2"
+    releaseImplementation "org.linphone:linphone-sdk-android:5.0.2"
+    //map
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    //play service
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    //emoji
+    implementation 'com.vanniktech:emoji-google:0.15.0'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+}

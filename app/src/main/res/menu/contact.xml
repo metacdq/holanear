@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/select_all"
+            android:title="@string/select_all"
+            app:showAsAction="ifRoom"/>
+    <item android:id="@+id/done"
+            android:title="@string/send"
+            app:showAsAction="always" />
+</menu>

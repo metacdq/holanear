@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="20dp"
+        android:elevation="@dimen/padding_medium"
+        android:layout_margin="@dimen/margin_medium"
+        android:padding="@dimen/padding_big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+       <LinearLayout
+           android:paddingTop="@dimen/padding_big"
+           android:paddingBottom="@dimen/padding_big"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:baselineAligned="false">
+
+               <LinearLayout
+                   android:id="@+id/pictureLayout"
+                   android:layout_margin="@dimen/margin_small"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:orientation="vertical">
+
+                   <ImageView
+                       android:padding="@dimen/padding_big"
+                       android:layout_gravity="center"
+                       android:background="@drawable/alter_bg"
+                       app:tint="@color/white"
+                       android:id="@+id/pictureImageView"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       app:srcCompat="@drawable/ic_baseline" />
+
+                   <TextView
+                       android:textColor="@color/black"
+                       android:textAlignment="center"
+                       android:id="@+id/pictureTextView"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/picture" />
+               </LinearLayout>
+               <LinearLayout
+                   android:id="@+id/videoLayout"
+                   android:layout_margin="@dimen/margin_small"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:orientation="vertical">
+
+                   <ImageView
+                       android:layout_gravity="center"
+                       android:padding="@dimen/padding_big"
+                       android:background="@drawable/alter_bg2"
+                       app:tint="@color/white"
+                       android:id="@+id/videoImageView"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       app:srcCompat="@drawable/ic_video" />
+
+                   <TextView
+                       android:textColor="@color/black"
+                       android:textAlignment="center"
+                       android:id="@+id/videoTextView"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/video" />
+               </LinearLayout>
+               <LinearLayout
+                   android:id="@+id/contactLayout"
+                   android:layout_margin="@dimen/margin_small"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:orientation="vertical">
+
+                   <ImageView
+                       android:layout_gravity="center"
+                       android:padding="@dimen/padding_big"
+                       android:background="@drawable/alter_bg3"
+                       app:tint="@color/white"
+                       android:id="@+id/contactImageView"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       app:srcCompat="@drawable/ic_contact" />
+
+                   <TextView
+                       android:textColor="@color/black"
+                       android:textAlignment="center"
+                       android:id="@+id/contactTextView"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/contact" />
+               </LinearLayout>
+           </LinearLayout>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:baselineAligned="false">
+
+               <LinearLayout
+                   android:id="@+id/locationLayout"
+                   android:layout_margin="@dimen/margin_small"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:orientation="vertical">
+
+                   <ImageView
+                       android:layout_gravity="center"
+                       android:padding="@dimen/padding_big"
+                       android:background="@drawable/alter_bg4"
+                       app:tint="@color/white"
+                       android:id="@+id/locationImageView"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       app:srcCompat="@drawable/ic_location" />
+
+                   <TextView
+                       android:textColor="@color/black"
+                       android:textAlignment="center"
+                       android:id="@+id/locationTextView"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/location" />
+               </LinearLayout>
+
+               <LinearLayout
+                   android:id="@+id/documentLayout"
+                   android:layout_margin="@dimen/margin_small"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:orientation="vertical">
+                   <ImageView
+                       android:layout_gravity="center"
+                       android:padding="@dimen/padding_big"
+                       android:background="@drawable/alter_bg5"
+                       app:tint="@color/white"
+                       android:id="@+id/fileImageView"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       app:srcCompat="@drawable/ic_file" />
+
+                   <TextView
+                       android:textColor="@color/black"
+                       android:textAlignment="center"
+                       android:id="@+id/fileTextView"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="Document" />
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_margin="@dimen/margin_small"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:orientation="vertical">
+               </LinearLayout>
+           </LinearLayout>
+       </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:id="@+id/groupSearch"
+            android:enabled="true"
+            android:visible="false">
+        <item android:id="@+id/menuPrevious"
+                android:icon="@drawable/ic_up"
+                app:showAsAction="ifRoom"
+                android:title="@string/previous"
+                tools:ignore="AlwaysShowAction" />
+        <item android:id="@+id/menuNext"
+                android:icon="@drawable/ic_down"
+                app:showAsAction="ifRoom"
+                android:title="@string/next" />
+    </group>
+    <group android:id="@+id/groupCall"
+            android:enabled="true"
+            android:visible="true">
+        <item android:id="@+id/menuCall"
+                android:icon="@drawable/ic_call"
+                app:showAsAction="ifRoom"
+                android:title="@string/call"
+                tools:ignore="AlwaysShowAction" />
+        <item android:id="@+id/menuVideoCall"
+                android:icon="@drawable/ic_video_call"
+                app:showAsAction="ifRoom"
+                android:title="@string/video_call" />
+    </group>
+    <item android:id="@+id/menuSearchChat"
+            android:icon="@drawable/ic_search"
+            app:showAsAction="collapseActionView"
+            app:actionViewClass="androidx.appcompat.widget.SearchView"
+            android:title="@string/search" />
+</menu>

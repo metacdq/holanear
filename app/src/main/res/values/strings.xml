@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">Kenulin</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="kenulin">KENULIN</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="dummy_time">20:00 PM</string>
+    <string name="invalid_otp">Invalid token please check it again</string>
+    <string name="phone_check">Please, check your phone number</string>
+    <string name="dummy_user">Alan Maulana Rahman</string>
+    <string name="dummy_message">Pesan Saya</string>
+    <string name="message">message</string>
+    <string name="settings">Settings</string>
+    <string name="search">Search</string>
+    <string name="verify_cap">VERIFY</string>
+    <string name="verify_desc">Kenulin will send you SMS verification to verify your phone number</string>
+    <string name="verify_your_phone_number">Verify Your Phone Number</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="check">Please check your inbox at +%1$</string>
+    <string name="enter_otp_token">Enter OTP Token</string>
+    <string name="token">TOKEN</string>
+    <string name="otp_send">SEND OTP</string>
+    <string name="_03_00">03:00</string>
+    <string name="resend">RESEND</string>
+    <string name="title_activity_contact_choose">Choose Contact</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="alan_maulana_r">Alan Maulana R</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="picture">Picture</string>
+    <string name="video">Video</string>
+    <string name="contact">Contact</string>
+    <string name="location">Location</string>
+    <string name="preview">Preview</string>
+    <string name="title_activity_choose_location">Map</string>
+    <string name="choose_location">Choose Location</string>
+    <string name="my_location">My Location</string>
+    <string name="search_here">Search Here</string>
+    <string name="send">SEND</string>
+    <string name="API_KEY">AIzaSyBfHEILxEtZmOCvRg6V09LEWTHPC-UUweM</string>
+    <string name="_20_december_2021">20 December 2021</string>
+    <string name="document_20_txt">Document 20.txt</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="call">Call</string>
+    <string name="video_call">Video Call</string>
+    <string name="spbu">SPBU</string>
+    <string name="jl_d">Jl. D</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="video_player">Video Player</string>
+    <string name="image_view">Image View</string>
+    <string name="image_caption">image caption</string>
+    <string name="_10_items">10 Items</string>
+    <string name="reply">Reply</string>
+    <string name="forward">Forward</string>
+    <string name="star">Star</string>
+    <string name="copy">Copy</string>
+    <string name="delete">Delete</string>
+    <string name="select_all">Select All</string>
+    <string name="pin">Pin/Unpin</string>
+    <string name="mute">Mute</string>
+    <string name="_1">1</string>
+    <string name="_3_minutes_23_seconds">3 minutes 23 seconds</string>
+</resources>

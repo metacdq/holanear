@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:elevation="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/chatListLayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/userImageView"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/padding_card_chat_list_half"
+                tools:srcCompat="@tools:sample/avatars" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:paddingLeft="@dimen/padding_medium"
+                    android:paddingRight="@dimen/padding_medium"
+                    android:paddingTop="@dimen/padding_medium"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/userTextView"
+                        android:layout_width="0dp"
+                        android:maxLines="1"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dummy_user"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:maxLines="1"
+                        android:padding="@dimen/padding_card_chat_list_half"
+                        android:textSize="12sp"
+                        android:id="@+id/dateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dummy_time"
+                        android:textStyle="italic"
+                        tools:ignore="SmallSp" />
+                </LinearLayout>
+
+
+               <LinearLayout
+                       android:padding="@dimen/padding_medium"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+                   <TextView
+                           android:layout_weight="1"
+                           android:maxLines="1"
+                           android:id="@+id/messageTextView"
+                           android:layout_width="0dp"
+                           android:layout_marginEnd="@dimen/margin_small"
+                           android:layout_gravity="center_vertical"
+                           android:layout_height="wrap_content"
+                           android:text="@string/dummy_message" />
+                   <ImageView
+                           android:layout_gravity="center"
+                           android:layout_width="24dp"
+                           android:layout_height="24dp"
+                           app:srcCompat="@drawable/ic_pinned_message"
+                           android:src="@drawable/ic_pinned_message"
+                           android:id="@+id/pinImageView"/>
+                   <ImageView
+                           android:layout_gravity="center"
+                           android:layout_width="24dp"
+                           android:layout_height="24dp"
+                           app:srcCompat="@drawable/ic_muted_message"
+                           android:src="@drawable/ic_muted_message"
+                           android:id="@+id/muteImageView"/>
+
+                   <TextView
+                           android:layout_gravity="center_vertical"
+                           android:maxLines="1"
+                           android:textColor="@color/white"
+                           android:background="@drawable/circle_marker_selected"
+                           android:padding="@dimen/padding_card_chat_list_half"
+                           android:textAlignment="center"
+                           android:id="@+id/unreadTextView"
+                           android:minWidth="26dp"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="@string/_1"
+                           tools:ignore="RtlCompat" />
+               </LinearLayout>
+
+                <View
+                    android:id="@+id/spacer"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+                <View
+                    android:id="@+id/devider"
+                    android:background="@drawable/devider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
