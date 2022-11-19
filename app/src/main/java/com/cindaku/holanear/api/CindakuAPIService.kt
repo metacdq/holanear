@@ -6,7 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 
-interface KenulinAPIService {
+interface CindakuAPIService {
     @POST("/api/otp")
     fun otp(@Body otp: OTPRequest): Call<OTPResponse>
     @POST("/api/verify")

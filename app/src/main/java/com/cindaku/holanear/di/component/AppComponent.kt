@@ -3,7 +3,7 @@ package com.cindaku.holanear.di.component
 import android.accounts.Account
 import android.content.Context
 import com.cindaku.holanear.activity.*
-import com.cindaku.holanear.api.KenulinAPIService
+import com.cindaku.holanear.api.CindakuAPIService
 import com.cindaku.holanear.di.module.*
 import com.cindaku.holanear.service.SIPService
 import com.cindaku.holanear.service.XMPPService
@@ -45,5 +45,5 @@ interface AppComponent {
     fun httpClient(): OkHttpClient
     fun sipConnector(): SIPConnector
     fun chatRepository(): ChatRepository
-    fun kenulinService():  KenulinAPIService
+    fun cindakuService():  CindakuAPIService
 }

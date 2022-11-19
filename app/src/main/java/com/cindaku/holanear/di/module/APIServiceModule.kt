@@ -1,7 +1,7 @@
 package com.cindaku.holanear.di.module
 
-import com.cindaku.holanear.KENULIN_BASE_URL
-import com.cindaku.holanear.api.KenulinAPIService
+import com.cindaku.holanear.BASE_URL
+import com.cindaku.holanear.api.CindakuAPIService
 import com.cindaku.holanear.api.PlaceAPIService
 import dagger.Module
 import dagger.Provides
@@ -20,7 +20,7 @@ class APIServiceModule {
         return OkHttpClient()
     }
     @Provides
-    fun provideKenulinAPIService(): KenulinAPIService{
+    fun provideCindakuAPIService(): CindakuAPIService{
         val builder=OkHttpClient.Builder()
         builder.addInterceptor(object : Interceptor{
             override fun intercept(chain: Interceptor.Chain): Response {
@@ -35,11 +35,11 @@ class APIServiceModule {
             }
         })
         val retrofit = Retrofit.Builder()
-            .baseUrl(KENULIN_BASE_URL)
+            .baseUrl(BASE_URL)
             .client(builder.build())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        return retrofit.create(KenulinAPIService::class.java)
+        return retrofit.create(CindakuAPIService::class.java)
     }
     @Provides
     fun providePlaceAPIService(): PlaceAPIService{

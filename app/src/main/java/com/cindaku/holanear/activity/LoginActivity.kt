@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.hbb20.CountryCodePicker
 import com.cindaku.holanear.BaseApp
 import com.cindaku.holanear.R
-import com.cindaku.holanear.api.KenulinAPIService
+import com.cindaku.holanear.api.CindakuAPIService
 import com.cindaku.holanear.model.OTPRequest
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var phone: EditText;
     lateinit var otpButton: Button
     @Inject
-    lateinit var kenulinAPIService: KenulinAPIService
+    lateinit var cindakuAPIService: CindakuAPIService
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as BaseApp).appComponent.inject(this)
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
             otpRequest.country_code=ccp.selectedCountryNameCode
             otpRequest.country_number=ccp.selectedCountryCodeAsInt.toString()
             otpButton.isEnabled=false
-            val response=kenulinAPIService.otp(otpRequest).execute()
+            val response=cindakuAPIService.otp(otpRequest).execute()
             if(response.code()==200){
                 Log.d("OTP",response.body().toString())
                 otpButton.isEnabled=true

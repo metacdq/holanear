@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.cindaku.holanear.BaseApp
 import com.cindaku.holanear.R
-import com.cindaku.holanear.api.KenulinAPIService
+import com.cindaku.holanear.api.CindakuAPIService
 import com.cindaku.holanear.di.module.Storage
 import com.cindaku.holanear.model.OTPRequest
 import com.cindaku.holanear.model.OTPResponse
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 class VerifyActivity : AppCompatActivity() {
     @Inject
-    lateinit var kenulinAPIService: KenulinAPIService
+    lateinit var kenulinAPIService: CindakuAPIService
     @Inject
     lateinit var storage: Storage
     lateinit var back: ImageView
