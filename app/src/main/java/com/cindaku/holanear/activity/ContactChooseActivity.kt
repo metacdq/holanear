@@ -20,7 +20,7 @@ import com.cindaku.holanear.db.entity.Contact
 import com.cindaku.holanear.ui.adapter.ContactListAdapter
 import com.cindaku.holanear.ui.adapter.SelectedContactListAdapter
 import com.cindaku.holanear.ui.inf.ContactChooseInterface
-import com.cindaku.holanear.ui.viewmodel.ContactViewModel
+import com.cindaku.holanear.viewmodel.ContactViewModel
 import kotlinx.coroutines.launch
 
 class ContactChooseActivity : AppCompatActivity() , ContactChooseInterface{

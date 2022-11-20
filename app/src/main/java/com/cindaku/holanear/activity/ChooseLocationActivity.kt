@@ -113,10 +113,12 @@ class ChooseLocationActivity : AppCompatActivity(), OnMapReadyCallback,OnChooseL
         try {
             gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
         } catch (ex: java.lang.Exception) {
+            ex.printStackTrace()
         }
         try {
             network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         } catch (ex: java.lang.Exception) {
+            ex.printStackTrace()
         }
         if (!gps_enabled && !network_enabled) {
             // notify user

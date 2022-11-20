@@ -1,12 +1,11 @@
 <resources>
-    <string name="app_name">Kenulin</string>
+    <string name="app_name">Hola Near</string>
     <string name="title_activity_chat">ChatActivity</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
-    -->
+    -->Ï
     <string name="hello_world">Hello Square World!</string>
-    <string name="kenulin">KENULIN</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="dummy_time">20:00 PM</string>
     <string name="invalid_otp">Invalid token please check it again</string>
@@ -71,4 +70,5 @@
     <string name="mute">Mute</string>
     <string name="_1">1</string>
     <string name="_3_minutes_23_seconds">3 minutes 23 seconds</string>
+    <string name="login_with_near">Login With Near</string>
 </resources>

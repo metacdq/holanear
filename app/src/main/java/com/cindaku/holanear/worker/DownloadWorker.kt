@@ -49,7 +49,7 @@ class DownloadWorker(val context: Context,val workerParams: WorkerParameters) : 
                             val filename=format.format(Calendar.getInstance().time)+message.attachmentName
                             val file = File(dir.absolutePath+"/"+filename)
                             val fos = FileOutputStream(file);
-                            fos.write(response.body()!!.bytes());
+                            fos.write(response.body!!.bytes());
                             fos.flush();
                             fos.close()
                             message.attachment=file.absolutePath
@@ -85,7 +85,7 @@ class DownloadWorker(val context: Context,val workerParams: WorkerParameters) : 
                                 format.format(Calendar.getInstance().time) + message.attachmentName
                             val file = File(dir.absolutePath + "/" + filename)
                             val fos = FileOutputStream(file);
-                            fos.write(response.body()!!.bytes());
+                            fos.write(response.body!!.bytes());
                             fos.flush();
                             fos.close()
                             message.attachment = file.absolutePath

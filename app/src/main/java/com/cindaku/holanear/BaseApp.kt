@@ -3,10 +3,9 @@ package com.cindaku.holanear
 import android.app.Application
 import android.content.Intent
 import android.os.StrictMode
-import com.cindaku.holanear.di.component.AppComponent
-import com.cindaku.holanear.di.component.DaggerAppComponent
+import com.cindaku.holanear.di.AppComponent
+import com.cindaku.holanear.di.DaggerAppComponent
 import com.cindaku.holanear.service.SIPService
-import com.cindaku.holanear.service.SyncService
 import com.cindaku.holanear.service.XMPPService
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.google.GoogleEmojiProvider
@@ -14,7 +13,6 @@ import com.vanniktech.emoji.google.GoogleEmojiProvider
 
 open class BaseApp : Application(){
     private var serviceXMPP=false
-    private var serviceSync=false
     private var serviceSIP=false
     val appComponent: AppComponent by lazy {
         DaggerAppComponent.factory().create(applicationContext)
@@ -30,6 +28,7 @@ open class BaseApp : Application(){
            Intent(this, XMPPService::class.java).also { intent ->
                startService(intent)
            }
+           serviceXMPP=true
        }
     }
     open fun runSIPService(){
@@ -37,13 +36,7 @@ open class BaseApp : Application(){
             Intent(this, SIPService::class.java).also { intent ->
                 startService(intent)
             }
-        }
-    }
-    open fun runSyncService(){
-        if(!serviceSync) {
-            Intent(this, SyncService::class.java).also { intent ->
-                startService(intent)
-            }
+            serviceSIP = true
         }
     }
 }

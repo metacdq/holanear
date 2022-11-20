@@ -4,7 +4,8 @@ import android.app.Service
 import android.content.Intent
 import android.os.*
 import com.cindaku.holanear.BaseApp
-import com.cindaku.holanear.di.module.SIPConnector
+import com.cindaku.holanear.module.SIPConnector
+import com.cindaku.holanear.module.Storage
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,6 +13,8 @@ import javax.inject.Singleton
 class SIPService : Service() {
     @Inject
     lateinit var connector: SIPConnector
+    @Inject
+    lateinit var storage: Storage
     override fun onCreate() {
         super.onCreate()
         (application as BaseApp).appComponent.inject(this)
@@ -22,7 +25,7 @@ class SIPService : Service() {
             manager.run {
                 newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"call:Kenulin").apply {
                     acquire(10*60*1000L /*10 minutes*/)
-                    connector.connect()
+                    connect()
                     release()
                 }
             }
@@ -30,6 +33,11 @@ class SIPService : Service() {
         return START_STICKY
     }
 
+    fun connect(){
+        if(storage.getBoolean("login")){
+            connector.connect()
+        }
+    }
     override fun onBind(intent: Intent?): IBinder? {
         return binder
     }

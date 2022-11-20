@@ -16,7 +16,7 @@ import com.cindaku.holanear.APP_NAME
 import com.cindaku.holanear.BaseApp
 import com.cindaku.holanear.R
 import com.cindaku.holanear.ui.adapter.ImagePreviewAdapter
-import com.cindaku.holanear.ui.viewmodel.ImagePreviewViewModel
+import com.cindaku.holanear.viewmodel.ImagePreviewViewModel
 import com.google.gson.Gson
 import io.ak1.pix.helpers.PixEventCallback
 import io.ak1.pix.helpers.addPixToActivity

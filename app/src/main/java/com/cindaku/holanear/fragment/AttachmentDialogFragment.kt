@@ -11,7 +11,7 @@ import com.cindaku.holanear.BaseApp
 import com.cindaku.holanear.R
 import com.cindaku.holanear.activity.DetailChatActivity
 import com.cindaku.holanear.model.SelectType
-import com.cindaku.holanear.ui.viewmodel.AttachmentViewModel
+import com.cindaku.holanear.viewmodel.AttachmentViewModel
 
 class AttachmentDialogFragment: DialogFragment() {
     private val viewModel: AttachmentViewModel by viewModels()

@@ -8,9 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#E4E4E4</color>
-    <color name="primary">#005ecb</color>
-    <color name="primaryTrans">#41005ECB</color>
-    <color name="secondary">#448aff</color>
+    <color name="primary">#00242C</color>
+    <color name="primaryTrans">#F700242C</color>
+    <color name="secondary">#81E291</color>
     <color name="secondaryBG">#A1739CDA</color>
     <color name="alterBG">#E175F1E5</color>
     <color name="whiteTrans">#3EFFFFFF</color>
@@ -18,6 +18,6 @@
     <color name="blackTransChat">#77000000</color>
     <color name="call">#009688</color>
     <color name="hang_up">#E91E63</color>
-    <color name="colorPrimaryPix">#005ecb</color>
-    <color name="colorPrimaryLightPix">#005ecb</color>
+    <color name="colorPrimaryPix">#00242C</color>
+    <color name="colorPrimaryLightPix">#00242C</color>
 </resources>

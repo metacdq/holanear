@@ -4,7 +4,8 @@ import android.app.Service
 import android.content.Intent
 import android.os.*
 import com.cindaku.holanear.BaseApp
-import com.cindaku.holanear.di.module.XMPPConnector
+import com.cindaku.holanear.module.Storage
+import com.cindaku.holanear.module.XMPPConnector
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,6 +13,8 @@ import javax.inject.Singleton
 class XMPPService: Service() {
     @Inject
     lateinit var xmppConnector: XMPPConnector
+    @Inject
+    lateinit var storage: Storage
     override fun onCreate() {
         super.onCreate()
         (application as BaseApp).appComponent.inject(this)
@@ -22,11 +25,17 @@ class XMPPService: Service() {
         manager.run {
             newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"chat:Kenulin").apply {
                 acquire(10*60*1000L /*10 minutes*/)
-                xmppConnector.connect()
+                connect()
                 release()
             }
         }
         return START_STICKY
+    }
+
+    fun connect(){
+        if(storage.getBoolean("login")){
+            xmppConnector.connect()
+        }
     }
 
     private val binder: XMPPServiceBinder = XMPPServiceBinder()

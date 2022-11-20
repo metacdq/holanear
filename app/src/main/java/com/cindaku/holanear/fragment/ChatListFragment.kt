@@ -25,7 +25,7 @@ import com.cindaku.holanear.activity.DetailChatActivity
 import com.cindaku.holanear.db.entity.ChatListWithDetail
 import com.cindaku.holanear.ui.adapter.ChatListAdapter
 import com.cindaku.holanear.ui.inf.OnChatListEvent
-import com.cindaku.holanear.ui.viewmodel.ChatViewModel
+import com.cindaku.holanear.viewmodel.ChatViewModel
 import kotlinx.coroutines.launch
 
 class ChatListFragment : Fragment(), OnChatListEvent {

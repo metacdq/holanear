@@ -23,4 +23,5 @@ dependencyResolutionManagement {
     }
 }
 include ':app'
+include ':knear-sdk'
 rootProject.name = "Hola Near"

@@ -15,7 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.cindaku.holanear.BaseApp
 import com.cindaku.holanear.R
 import com.cindaku.holanear.ui.adapter.CallListAdapter
-import com.cindaku.holanear.ui.viewmodel.CallViewModel
+import com.cindaku.holanear.viewmodel.CallViewModel
 import kotlinx.coroutines.launch
 
 class CallFragment : Fragment() {

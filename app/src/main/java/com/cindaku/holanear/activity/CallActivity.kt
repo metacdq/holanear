@@ -16,7 +16,7 @@ import com.google.gson.Gson
 import com.cindaku.holanear.BaseApp
 import com.cindaku.holanear.R
 import com.cindaku.holanear.db.entity.Contact
-import com.cindaku.holanear.di.module.SIPConnector
+import com.cindaku.holanear.module.SIPConnector
 import com.cindaku.holanear.ui.drawable.AcronymDrawable
 import com.cindaku.holanear.ui.inf.OnCall
 import javax.inject.Inject

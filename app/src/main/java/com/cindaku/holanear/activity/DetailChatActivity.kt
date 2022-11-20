@@ -51,7 +51,7 @@ import com.cindaku.holanear.ui.drawable.AcronymDrawable
 import com.cindaku.holanear.ui.inf.OnMessageEvent
 import com.cindaku.holanear.ui.inf.OnSelectMode
 import com.cindaku.holanear.ui.inf.OnSearchMessageResult
-import com.cindaku.holanear.ui.viewmodel.ChatDetailViewModel
+import com.cindaku.holanear.viewmodel.ChatDetailViewModel
 import com.vanniktech.emoji.EmojiEditText
 import com.vanniktech.emoji.EmojiPopup
 import com.vanniktech.emoji.listeners.*
