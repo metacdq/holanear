@@ -14,7 +14,6 @@ import com.cindaku.holanear.XMPP_HOST
 import com.cindaku.holanear.db.entity.ChatMessage
 import com.cindaku.holanear.db.entity.Contact
 import com.cindaku.holanear.module.ChatRepository
-import com.cindaku.holanear.module.SIPConnector
 import com.cindaku.holanear.module.Storage
 import com.cindaku.holanear.module.XMPPConnector
 import com.cindaku.holanear.model.ContactMessage
@@ -35,8 +34,6 @@ class ChatDetailViewModel: ViewModel() {
     lateinit var xmppConnector: XMPPConnector
     @Inject
     lateinit var chatRepository: ChatRepository
-    @Inject
-    lateinit var sipConnector: SIPConnector
     @Inject
     lateinit var storage: Storage
     var contact: Contact?=null
@@ -74,13 +71,6 @@ class ChatDetailViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO){
             contact?.let {
                 xmppConnector.sendReadEvent(it)
-            }
-        }
-    }
-    fun call(isVideo: Boolean){
-        viewModelScope.launch(Dispatchers.IO) {
-            contact?.let {
-                sipConnector.makeACall(it, isVideo)
             }
         }
     }

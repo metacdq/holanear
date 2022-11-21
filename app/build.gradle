@@ -53,7 +53,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     //noinspection GradleDependency
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     api 'androidx.activity:activity-ktx:1.6.1'
@@ -117,4 +116,6 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    //phonenumber
+    implementation 'io.michaelrocks:libphonenumber-android:8.12.57'
 }

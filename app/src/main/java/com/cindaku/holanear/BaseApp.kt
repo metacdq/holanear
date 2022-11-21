@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.StrictMode
 import com.cindaku.holanear.di.AppComponent
 import com.cindaku.holanear.di.DaggerAppComponent
-import com.cindaku.holanear.service.SIPService
 import com.cindaku.holanear.service.XMPPService
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.google.GoogleEmojiProvider
@@ -14,7 +13,6 @@ import org.minidns.dnsserverlookup.android21.AndroidUsingLinkProperties
 
 open class BaseApp : Application(){
     private var serviceXMPP=false
-    private var serviceSIP=false
     val appComponent: AppComponent by lazy {
         DaggerAppComponent.factory().create(applicationContext)
     }
@@ -32,13 +30,5 @@ open class BaseApp : Application(){
            }
            serviceXMPP=true
        }
-    }
-    open fun runSIPService(){
-        if(!serviceSIP) {
-            Intent(this, SIPService::class.java).also { intent ->
-                startService(intent)
-            }
-            serviceSIP = true
-        }
     }
 }

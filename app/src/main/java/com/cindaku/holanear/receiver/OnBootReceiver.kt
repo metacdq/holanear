@@ -12,7 +12,6 @@ class OnBootReceiver: BroadcastReceiver() {
         p0?.let {
             try {
                 (it.applicationContext as BaseApp).runXMPPService()
-//                (it.applicationContext as BaseApp).runSIPService()
             }catch (e: Exception){
                 e.printStackTrace()
             }

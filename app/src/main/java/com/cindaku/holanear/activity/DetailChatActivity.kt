@@ -521,23 +521,7 @@ class DetailChatActivity : AppCompatActivity(),OnSelectMode,OnMessageEvent {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId==R.id.menuCall){
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requestPermissions(permissionList,1380)
-            }else{
-                viewModel.call(false)
-            }
-        }else if(item.itemId==R.id.menuVideoCall){
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requestPermissions(permissionList,1380)
-            }else{
-                viewModel.call(true)
-            }
-        }else if(item.itemId==R.id.menuNext){
+        if(item.itemId==R.id.menuNext){
             onSearchMessageResult?.apply {
                 this.getNext()?.also {
                     if(it>=0) {

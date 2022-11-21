@@ -55,10 +55,6 @@
             android:name=".activity.ChatActivity"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.HolaNear.Full" />
-        <activity
-            android:name=".activity.CallActivity"
-            android:launchMode="singleInstance"
-            android:theme="@style/Theme.HolaNear.Full" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -79,15 +75,6 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-
-        <service
-            android:name="com.cindaku.holanear.service.SIPService"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.telecom.ConnectionService" />
-            </intent-filter>
-        </service>
 
         <activity
             android:name=".activity.ImagePreviewActivity"
