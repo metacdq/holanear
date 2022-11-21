@@ -63,6 +63,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout-core:1.0.4'
     implementation project(path: ':knear-sdk')
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -107,10 +108,6 @@ dependencies {
     implementation "androidx.work:work-multiprocess:2.7.1"
     //Video Player
     implementation 'com.google.android.exoplayer:exoplayer:2.18.1'
-    //Viode/Voice Call
-    implementation 'io.michaelrocks:libphonenumber-android:8.12.57'
-    debugImplementation "org.linphone:linphone-sdk-android-debug:5.0.2"
-    releaseImplementation "org.linphone:linphone-sdk-android:5.0.2"
     //map
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     //play service

@@ -84,7 +84,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <LinearLayout
-            android:background="@color/whiteTrans"
+            android:background="@color/blackTrans"
             android:id="@+id/messageLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -125,5 +125,8 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

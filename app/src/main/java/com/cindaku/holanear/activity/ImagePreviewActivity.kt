@@ -8,6 +8,9 @@ import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.FileProvider
+import androidx.core.net.toFile
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +19,7 @@ import com.cindaku.holanear.APP_NAME
 import com.cindaku.holanear.BaseApp
 import com.cindaku.holanear.R
 import com.cindaku.holanear.ui.adapter.ImagePreviewAdapter
+import com.cindaku.holanear.utils.FileHelper
 import com.cindaku.holanear.viewmodel.ImagePreviewViewModel
 import com.google.gson.Gson
 import io.ak1.pix.helpers.PixEventCallback
@@ -49,6 +53,7 @@ class ImagePreviewActivity : AppCompatActivity() {
         list=findViewById(R.id.imagesRecyclerView)
         send=findViewById(R.id.sendImageView)
         add=findViewById(R.id.addImageView)
+        add.isVisible = false
         preview=findViewById(R.id.previewImageView)
         text=findViewById(R.id.captionEditText)
         back=toolbar.findViewById(R.id.backImageView)
@@ -106,7 +111,7 @@ class ImagePreviewActivity : AppCompatActivity() {
                                 val  toSend= arrayListOf<HashMap<String,String>>()
                                 listData.forEach { it ->
                                     val map= hashMapOf<String,String>()
-                                    map["image"] = it.toString()
+                                    map["image"] = FileHelper.processUri(baseContext, it)!!
                                     map["caption"] = ""
                                     toSend.add(map)
                                 }

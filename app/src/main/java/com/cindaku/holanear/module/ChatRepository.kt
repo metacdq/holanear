@@ -16,7 +16,7 @@ interface ChatRepository {
     fun getMessageByChatId(chat_id: Int): Flow<List<ChatMessage>>
     fun getMessageByChatIdFirst(chat_id: Int): List<ChatMessage>
     fun getMessageByMessageId(message_id: Int): ChatMessage
-    fun getMessageByStanzaId(stanza_id: String): ChatMessage
+    fun getMessageByStanzaId(stanza_id: String): ChatMessage?
     fun getMessageByContactId(contact_id: Int): Flow<List<ChatMessage>>
     fun deleteMessage(ids: List<Int>)
     fun deleteFromSender(ids: List<String>)

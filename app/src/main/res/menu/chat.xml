@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menuSetting"
         android:title="@string/settings" />
-    <item android:id="@+id/menuSearch"
-        android:icon="@drawable/ic_search"
+    <item android:id="@+id/menuAddContact"
+        android:icon="@drawable/ic_add_contact"
         app:showAsAction="ifRoom"
         android:showAsAction="ifRoom"
-        android:title="@string/search"
+        android:title="@string/add_contact"
         tools:ignore="AppCompatResource" />
 </menu>

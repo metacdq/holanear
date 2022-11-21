@@ -9,8 +9,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.provider.OpenableColumns
 import android.view.Menu
 import android.view.MenuItem
@@ -21,6 +21,7 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +33,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.google.gson.Gson
 import com.cindaku.holanear.APP_NAME
 import com.cindaku.holanear.BaseApp
 import com.cindaku.holanear.R
@@ -49,15 +49,14 @@ import com.cindaku.holanear.model.SelectType
 import com.cindaku.holanear.ui.adapter.MessageListAdapter
 import com.cindaku.holanear.ui.drawable.AcronymDrawable
 import com.cindaku.holanear.ui.inf.OnMessageEvent
-import com.cindaku.holanear.ui.inf.OnSelectMode
 import com.cindaku.holanear.ui.inf.OnSearchMessageResult
+import com.cindaku.holanear.ui.inf.OnSelectMode
+import com.cindaku.holanear.utils.FileHelper
 import com.cindaku.holanear.viewmodel.ChatDetailViewModel
+import com.google.gson.Gson
 import com.vanniktech.emoji.EmojiEditText
 import com.vanniktech.emoji.EmojiPopup
 import com.vanniktech.emoji.listeners.*
-import io.ak1.pix.helpers.PixEventCallback
-import io.ak1.pix.helpers.addPixToActivity
-import io.ak1.pix.helpers.pixFragment
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
 import io.ak1.pix.models.Ratio
@@ -83,6 +82,7 @@ class DetailChatActivity : AppCompatActivity(),OnSelectMode,OnMessageEvent {
     private lateinit var layoutReply: LinearLayout
     private lateinit var replyTextView: TextView
     private lateinit var replySubTextView: TextView
+    private lateinit var container: LinearLayoutCompat
     private lateinit var cloreReplyImageView: ImageView
     private var onSearchMessageResult: OnSearchMessageResult?=null
     var attahmentDialog: AttachmentDialogFragment?=null
@@ -95,6 +95,64 @@ class DetailChatActivity : AppCompatActivity(),OnSelectMode,OnMessageEvent {
                         genericType<ArrayList<HashMap<String,String>>>())
                     viewModel.sendImage(images)
                     initReply()
+                }
+            }
+        }
+    }
+
+    var onImagePicked=registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            it.data?.let { intent->
+                lifecycleScope.launch {
+                    val result: ArrayList<Uri>? =if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        intent.getParcelableArrayListExtra("images", Uri::class.java)
+                    }
+                    else{
+                        intent.getParcelableArrayListExtra("images")
+                    }
+                    result?.let {
+                        if (it.size>0){
+                            viewModel.contact?.run {
+                                val images= arrayListOf<String>()
+                                for (uri in result){
+                                    images.add(FileHelper.processUri(baseContext, uri)!!)
+                                }
+                                val intent=Intent(baseContext,ImagePreviewActivity::class.java)
+                                intent.putExtra("images",images)
+                                intent.putExtra("to",this.jId)
+                                onImageCaptioned.launch(intent)
+                                hidePicker()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    var onVideoPicked=registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            it.data?.let { intent->
+                lifecycleScope.launch {
+                    val result: ArrayList<Uri>? =if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        intent.getParcelableArrayListExtra("images", Uri::class.java)
+                    }
+                    else{
+                        intent.getParcelableArrayListExtra("images")
+                    }
+                    result?.let {
+                        if (it.size>0){
+                            viewModel.contact?.run {
+                                if (result.isNotEmpty()){
+                                    val video=FileHelper.processUri(baseContext, result[0])!!
+                                    lifecycleScope.launch {
+                                        viewModel.sendVideo(video)
+                                        initReply()
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -191,7 +249,9 @@ class DetailChatActivity : AppCompatActivity(),OnSelectMode,OnMessageEvent {
     var onSelectedMap=registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if(it.resultCode==Activity.RESULT_OK){
             it.data?.let {
-                val location=it.getParcelableExtra<Location>("location")
+                val location=if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    it.getParcelableExtra("location", Location::class.java)
+                } else{ it.getParcelableExtra<Location>("location") }
                 val image=it.getStringExtra("image")
                 location?.let {
                     image?.let {
@@ -206,13 +266,6 @@ class DetailChatActivity : AppCompatActivity(),OnSelectMode,OnMessageEvent {
         hidePicker()
     }
 
-    var onAddedContact=registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if(it.resultCode==Activity.RESULT_OK) {
-            it.data?.let {
-
-            }
-        }
-    }
     val permissionList= arrayOf(
         Manifest.permission.RECORD_AUDIO,
         Manifest.permission.CAMERA
@@ -237,6 +290,7 @@ class DetailChatActivity : AppCompatActivity(),OnSelectMode,OnMessageEvent {
         layoutReply=findViewById(R.id.layoutReply)
         replySubTextView=findViewById(R.id.replySubTextView)
         cloreReplyImageView=findViewById(R.id.cloreReplyImageView)
+        container=findViewById(R.id.container)
         val layoutManager=LinearLayoutManager(this)
         messageList.layoutManager=layoutManager
         back.setOnClickListener {
@@ -284,7 +338,7 @@ class DetailChatActivity : AppCompatActivity(),OnSelectMode,OnMessageEvent {
     }
 
     override fun onBackPressed() {
-        if(viewModel.isSelectMode){
+        if(viewModel.isSelectMode) {
             clearSelection()
         }else{
             super.onBackPressed()
@@ -380,31 +434,9 @@ class DetailChatActivity : AppCompatActivity(),OnSelectMode,OnMessageEvent {
                 mode = Mode.Picture                                             //Option to select only pictures or videos or both
                 preSelectedUrls = ArrayList()                          //Pre selected Image Urls
             }
-            addPixToActivity(R.id.container, options) {
-                when (it.status) {
-                    PixEventCallback.Status.SUCCESS -> {
-                        val returnValue: List<Uri> = it.data
-                        returnValue.let {
-                            if (it.size>0){
-                                viewModel.contact?.run {
-                                    val images= arrayListOf<String>()
-                                    for (uri in returnValue){
-                                        images.add(uri.toString())
-                                    }
-                                    val intent=Intent(baseContext,ImagePreviewActivity::class.java)
-                                    intent.putExtra("images",images)
-                                    intent.putExtra("to",this.jId)
-                                    onImageCaptioned.launch(intent)
-                                    hidePicker()
-                                }
-                            }
-                        }
-                    }
-                    PixEventCallback.Status.BACK_PRESSED -> {
-                        hidePicker()
-                    }
-                }
-            }
+            val i=Intent(baseContext, PixActivity::class.java)
+            i.putExtra("options", options)
+            onImagePicked.launch(i)
         }else if(select==SelectType.VIDEO){
             val options = Options().apply{
                 ratio =
@@ -413,28 +445,12 @@ class DetailChatActivity : AppCompatActivity(),OnSelectMode,OnMessageEvent {
                 spanCount = 5                                               //Number for columns in grid
                 path = "/"+ APP_NAME+"/video"                                       //Custom Path For media Storage
                 isFrontFacing = false                                       //Front Facing camera on start
-                mode = Mode.Picture                                             //Option to select only pictures or videos or both
+                mode = Mode.Video                                             //Option to select only pictures or videos or both
                 preSelectedUrls = ArrayList()                          //Pre selected Image Urls
             }
-            addPixToActivity(R.id.container, options) {
-                when (it.status) {
-                    PixEventCallback.Status.SUCCESS -> {
-                        val returnValue: List<Uri> = it.data
-                        returnValue.let {
-                            if (returnValue.isNotEmpty()){
-                                val video=returnValue[0].toString()
-                                lifecycleScope.launch {
-                                    viewModel.sendVideo(video)
-                                    initReply()
-                                }
-                            }
-                        }
-                    }
-                    PixEventCallback.Status.BACK_PRESSED -> {
-                        hidePicker()
-                    }
-                }
-            }
+            val i=Intent(baseContext, PixActivity::class.java)
+            i.putExtra("options", options)
+            onVideoPicked.launch(i)
         }else if(select==SelectType.DOCUMENT){
             val i = Intent(Intent.ACTION_GET_CONTENT, null)
             i.type = "application/*,texxt/*"
@@ -460,13 +476,12 @@ class DetailChatActivity : AppCompatActivity(),OnSelectMode,OnMessageEvent {
                 search.setOnActionExpandListener(object : MenuItem.OnActionExpandListener{
 
                     override fun onMenuItemActionExpand(item: MenuItem): Boolean {
-                        menu.setGroupVisible(R.id.groupCall,false)
                         menu.setGroupVisible(R.id.groupSearch,true)
                         return true
                     }
 
                     override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
-                        menu.setGroupVisible(R.id.groupCall,true)
+                        menu.setGroupVisible(R.id.groupSearch,false)
                         invalidateOptionsMenu()
                         adapter.clearSearch()
                         return true
@@ -585,13 +600,8 @@ class DetailChatActivity : AppCompatActivity(),OnSelectMode,OnMessageEvent {
     }
 
     override fun requestAddContact(contactToAdd: ContactMessage) {
-        val intent = Intent(
-            ContactsContract.Intents.Insert.ACTION
-        )
-        intent.setType(ContactsContract.RawContacts.CONTENT_TYPE)
-        intent.putExtra(ContactsContract.Intents.Insert.PHONE, contactToAdd.phones[0])
-        intent.putExtra(ContactsContract.Intents.Insert.NAME, contactToAdd.name)
-        onAddedContact.launch(intent)
+        viewModel.save(contactToAdd)
+        adapter.refresh()
     }
 
     override fun onLongPressed(message: ChatMessage) {

@@ -3,30 +3,30 @@ package com.cindaku.holanear.activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.cindaku.holanear.BaseApp
 import com.cindaku.holanear.R
+import com.cindaku.holanear.ui.inf.OnLoading
 import com.cindaku.holanear.viewmodel.MainViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnLoading {
     val permissionList= arrayOf(
-            android.Manifest.permission.READ_CONTACTS,
-            android.Manifest.permission.WRITE_CONTACTS,
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
     lateinit var mainViewModel: MainViewModel
     private lateinit var buttonLogin : Button
+    private lateinit var progressBar: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         mainViewModel=ViewModelProvider(this)[MainViewModel::class.java]
         (application as BaseApp).appComponent.inject(mainViewModel)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         buttonLogin=findViewById(R.id.buttonLogin)
+        progressBar=findViewById(R.id.progressBar)
         buttonLogin.setOnClickListener {
             mainViewModel.login(this)
         }
@@ -37,18 +37,18 @@ class MainActivity : AppCompatActivity() {
         requestPermissions(permissionList,1001)
     }
     fun checkLogin(){
+        showLoading()
        if(mainViewModel.checkLogin()){
            try {
-               lifecycleScope.launch(Dispatchers.Main){
-                   (application as BaseApp).runXMPPService()
-                   (application as BaseApp).runSIPService()
-               }
+               hideLoading()
                val intent = Intent(baseContext, ChatActivity::class.java)
                startActivity(intent)
                finish()
            }catch (e: Exception){
                e.printStackTrace()
            }
+       }else{
+           hideLoading()
        }
     }
 
@@ -63,4 +63,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun showLoading() {
+        progressBar.isVisible=true
+        buttonLogin.isVisible=false
+    }
+
+    override fun hideLoading() {
+        progressBar.isVisible=false
+        buttonLogin.isVisible=true
+    }
 }

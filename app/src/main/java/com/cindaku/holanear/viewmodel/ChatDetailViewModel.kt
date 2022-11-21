@@ -10,6 +10,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import androidx.work.workDataOf
+import com.cindaku.holanear.XMPP_HOST
 import com.cindaku.holanear.db.entity.ChatMessage
 import com.cindaku.holanear.db.entity.Contact
 import com.cindaku.holanear.module.ChatRepository
@@ -21,7 +22,9 @@ import com.cindaku.holanear.model.Location
 import com.cindaku.holanear.model.MessageType
 import com.cindaku.holanear.model.ReplySnippet
 import com.cindaku.holanear.worker.DownloadWorker
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -68,13 +71,17 @@ class ChatDetailViewModel: ViewModel() {
         return chatToReply
     }
     fun setReadedAll(){
-        contact?.let {
-            xmppConnector.sendReadEvent(it)
+        viewModelScope.launch(Dispatchers.IO){
+            contact?.let {
+                xmppConnector.sendReadEvent(it)
+            }
         }
     }
     fun call(isVideo: Boolean){
-        contact?.let {
-            sipConnector.makeACall(it,isVideo)
+        viewModelScope.launch(Dispatchers.IO) {
+            contact?.let {
+                sipConnector.makeACall(it, isVideo)
+            }
         }
     }
     fun getMessageByStanzaId(stanza_id: String): ChatMessage?{
@@ -116,17 +123,31 @@ class ChatDetailViewModel: ViewModel() {
     fun search(phone: String): List<Contact>{
         return chatRepository.searchByPhone(query = phone)
     }
+
+    fun save(contact: ContactMessage){
+        chatRepository.addContact(Contact(
+            null,
+            contact.name,
+            contact.name,
+            contact.phones[0],
+            contact.phones[0]+"@"+ XMPP_HOST,
+            ""
+        ))
+    }
+
     fun searchMeassage(queryMessage: String): List<ChatMessage>{
         return chatRepository.searchMessage(queryMessage,contact_id = contact!!.id!!)
     }
     fun send(text: String){
-        contact?.let {
-            xmppConnector.sendTextMessage(it,text,chatToReply)
-            chatToReply=null
-        }
+       viewModelScope.launch(Dispatchers.IO){
+           contact?.let {
+               xmppConnector.sendTextMessage(it,text,chatToReply)
+               chatToReply=null
+           }
+       }
     }
     fun downloadMessage(context: Context,chatMessage: ChatMessage){
-        viewModelScope.coroutineContext.let {
+        viewModelScope.launch(Dispatchers.IO) {
             val downloadWorker: WorkRequest =
                 OneTimeWorkRequestBuilder<DownloadWorker>()
                     .setInputData(
@@ -140,7 +161,7 @@ class ChatDetailViewModel: ViewModel() {
         }
     }
     fun sendImage(images: ArrayList<HashMap<String,String>>){
-        viewModelScope.coroutineContext.let {
+        viewModelScope.launch(Dispatchers.IO){
             contact?.let {
                 xmppConnector.sendImageMessage(it,images,reply = chatToReply)
                 chatToReply=null
@@ -149,7 +170,7 @@ class ChatDetailViewModel: ViewModel() {
     }
     @SuppressLint("SimpleDateFormat")
     fun sendDocument(contentResolver: ContentResolver, uri: Uri, name: String, directory: File){
-        viewModelScope.coroutineContext.let {
+        viewModelScope.launch(Dispatchers.IO){
             contact?.let {
                 val format= SimpleDateFormat("yyyyMMddHHmmss")
                 val filename=format
@@ -164,18 +185,22 @@ class ChatDetailViewModel: ViewModel() {
         }
     }
     fun sendLocation(location: Location,image: File){
-        contact?.let {
-            xmppConnector.sendLocationMessage(it,location,image,chatToReply)
-            chatToReply=null
+        viewModelScope.launch(Dispatchers.IO) {
+            contact?.let {
+                xmppConnector.sendLocationMessage(it, location, image, chatToReply)
+                chatToReply = null
+            }
         }
     }
     fun sendVideo(video: String){
-        contact?.let {
-            xmppConnector.sendVideoMessage(it, video,chatToReply)
+        viewModelScope.launch(Dispatchers.IO){
+            contact?.let {
+                xmppConnector.sendVideoMessage(it, video,chatToReply)
+            }
         }
     }
     fun sendContact(message: ContactMessage){
-        viewModelScope.coroutineContext.let {
+        viewModelScope.launch(Dispatchers.IO) {
             contact?.let {
                 xmppConnector.sendContactMessage(it, message,chatToReply)
                 chatToReply=null
@@ -183,7 +208,7 @@ class ChatDetailViewModel: ViewModel() {
         }
     }
     fun sendContactMultiple(message: List<ContactMessage>){
-        viewModelScope.coroutineContext.let {
+        viewModelScope.launch(Dispatchers.IO) {
             contact?.let {
                message.forEach {
                    xmppConnector.sendContactMessage(contact!!, it,chatToReply)

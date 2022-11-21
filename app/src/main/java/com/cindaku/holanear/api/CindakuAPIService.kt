@@ -7,10 +7,6 @@ import retrofit2.http.POST
 
 
 interface CindakuAPIService {
-    @POST("/api/otp")
-    fun otp(@Body otp: OTPRequest): Call<OTPResponse>
-    @POST("/api/verify")
-    fun verify(@Body verify: VerifyRequest): Call<VerifyResponse>
-    @POST("/api/sync")
-    fun sync(@Body sync: SyncRequest): Call<ArrayList<KenulinUser>>
+    @POST("/api/login")
+    fun login(@Body request: LoginRequest): Call<LoginResponse>
 }

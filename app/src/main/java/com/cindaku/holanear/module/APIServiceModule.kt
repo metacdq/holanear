@@ -22,18 +22,6 @@ class APIServiceModule {
     @Provides
     fun provideCindakuAPIService(): CindakuAPIService{
         val builder=OkHttpClient.Builder()
-        builder.addInterceptor(object : Interceptor{
-            override fun intercept(chain: Interceptor.Chain): Response {
-                val request=chain.request()
-                val addedHeader=Request.Builder()
-                    .url(request.url)
-                    .header("Content-Type","application/json")
-                    .header("Authorization","Basic a2VudWxpbjprZW50YQ==")
-                    .method(request.method, request.body)
-                    .build()
-                return chain.proceed(addedHeader)
-            }
-        })
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(builder.build())

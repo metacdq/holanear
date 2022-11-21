@@ -7,17 +7,17 @@
             android:visible="false">
         <item android:id="@+id/menuPrevious"
                 android:icon="@drawable/ic_up"
-                app:showAsAction="ifRoom"
+                app:showAsAction="always"
                 android:title="@string/previous"
                 tools:ignore="AlwaysShowAction" />
         <item android:id="@+id/menuNext"
                 android:icon="@drawable/ic_down"
-                app:showAsAction="ifRoom"
+                app:showAsAction="always"
                 android:title="@string/next" />
     </group>
     <group android:id="@+id/groupCall"
-            android:enabled="true"
-            android:visible="true">
+            android:enabled="false"
+            android:visible="false">
         <item android:id="@+id/menuCall"
                 android:icon="@drawable/ic_call"
                 app:showAsAction="ifRoom"
@@ -29,8 +29,8 @@
                 android:title="@string/video_call" />
     </group>
     <item android:id="@+id/menuSearchChat"
-            android:icon="@drawable/ic_search"
-            app:showAsAction="collapseActionView"
-            app:actionViewClass="androidx.appcompat.widget.SearchView"
-            android:title="@string/search" />
+        android:icon="@drawable/ic_search"
+        app:showAsAction="collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        android:title="@string/search" />
 </menu>

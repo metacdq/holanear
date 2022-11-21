@@ -9,6 +9,7 @@ import com.cindaku.holanear.service.SIPService
 import com.cindaku.holanear.service.XMPPService
 import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.google.GoogleEmojiProvider
+import org.minidns.dnsserverlookup.android21.AndroidUsingLinkProperties
 
 
 open class BaseApp : Application(){
@@ -22,6 +23,7 @@ open class BaseApp : Application(){
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
         EmojiManager.install(GoogleEmojiProvider())
+        AndroidUsingLinkProperties.setup(applicationContext);
     }
     open fun runXMPPService(){
        if(!serviceXMPP){

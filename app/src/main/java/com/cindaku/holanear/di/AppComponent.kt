@@ -32,6 +32,8 @@ interface AppComponent {
     fun inject(activity: CallActivity)
     fun inject(model: MainViewModel)
     fun inject(model: AttachmentViewModel)
+    fun inject(model: ChatMasterViewModel)
+    fun inject(model: SettingViewModel)
     fun inject(model: ContactViewModel)
     fun inject(model: CallViewModel)
     fun inject(model: ChatDetailViewModel)

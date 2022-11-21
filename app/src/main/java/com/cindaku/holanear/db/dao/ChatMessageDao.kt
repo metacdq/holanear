@@ -20,7 +20,7 @@ interface ChatMessageDao {
     @Query("select * from chatmessage where contact_id=:contact_id and sent_date>=:send")
     fun getLastMessageCurrentDateForContact(contact_id: Int,send: Long): ChatMessage?
     @Query("select * from chatmessage where stanza_id=:stanza_id")
-    fun findMessageByStanzaId(stanza_id: String): ChatMessage
+    fun findMessageByStanzaId(stanza_id: String): ChatMessage?
     @Query("select * from chatmessage inner join chatlist on chatlist.chat_id=chatmessage.chat_id where chatlist.contact_id=:contact_id and (message_type<6 or message_type>6) order by sent_date ASC")
     fun findMessageByContactId(contact_id: Int): Flow<List<ChatMessage>>
     @Insert(onConflict = OnConflictStrategy.REPLACE)

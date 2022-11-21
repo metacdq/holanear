@@ -56,7 +56,6 @@ class MessageListAdapter(val context: Context) :
         return messages.size
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables", "SimpleDateFormat")
     override fun onBindViewHolder(holder: MessageBaseViewHolder, position: Int) {
         if(!messages[position].isDeleted) {
             val now = Calendar.getInstance().time.time
@@ -225,7 +224,7 @@ class MessageListAdapter(val context: Context) :
                         onMessageEvent?.let {
                             val exists=it.checkContact(contact.phones[0])
                             if(exists.isNotEmpty() == false) {
-                                holder.buttonAddContact.isVisible = false
+                                holder.buttonAddContact.isVisible = true
                             }else{
                                 holder.buttonAddContact.isVisible = false
                                 holder.layoutContact.setOnClickListener { view->
@@ -396,6 +395,7 @@ class MessageListAdapter(val context: Context) :
             holder.spinnerDownload.isVisible = false
             holder.messageTextView.text="This message was deleted"
             holder.replyTextView.isVisible=false
+            holder.layoutReply.isVisible=false
             holder.dateTextView.isVisible=false
             if(!messages[position].isLeft){
                 val rightHolder = holder as MessageRightItem
@@ -448,6 +448,10 @@ class MessageListAdapter(val context: Context) :
 
     override fun clearSearch() {
         searchResults= listOf()
+        notifyDataSetChanged()
+    }
+
+    fun refresh(){
         notifyDataSetChanged()
     }
     fun findMessageOnList(chatMessage: ChatMessage): Int{

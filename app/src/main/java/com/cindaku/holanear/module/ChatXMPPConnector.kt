@@ -2,17 +2,20 @@ package com.cindaku.holanear.module
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.app.TaskStackBuilder
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import androidx.work.workDataOf
 import automatic
-import com.google.gson.Gson
 import com.cindaku.holanear.XMPP_HOST
+import com.cindaku.holanear.activity.DetailChatActivity
 import com.cindaku.holanear.db.entity.*
 import com.cindaku.holanear.extension.genericType
 import com.cindaku.holanear.model.*
@@ -20,6 +23,8 @@ import com.cindaku.holanear.ui.inf.OnChangeAvatar
 import com.cindaku.holanear.utils.IDUtils
 import com.cindaku.holanear.worker.DownloadWorker
 import com.cindaku.holanear.worker.UploadWorker
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import me.shouheng.compress.Compress
 import org.jivesoftware.smack.*
 import org.jivesoftware.smack.chat2.Chat
@@ -50,6 +55,7 @@ import java.io.File
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
+
 
 @Singleton
 class ChatXMPPConnector  @Inject constructor(
@@ -161,7 +167,6 @@ class ChatXMPPConnector  @Inject constructor(
     }
 
     override fun deleteRemoteMessage(contact: Contact,messages: ArrayList<ChatMessage>) {
-        checkConnectiom()
         try{
             checkConnectiom()
             try{
@@ -269,6 +274,7 @@ class ChatXMPPConnector  @Inject constructor(
     }
 
     override fun httpManager(): HttpFileUploadManager {
+        httpFileUploadManager= HttpFileUploadManager.getInstanceFor(xmpptcpConnection)
         return httpFileUploadManager
     }
 
@@ -384,12 +390,12 @@ class ChatXMPPConnector  @Inject constructor(
                 val xmppMessage = MessageBuilder.buildMessage()
                     .setBody(Gson().toJson(chatMessage)).build()
                 xmppMessage.stanzaId = IDUtils.generateMessageStanzaId(chatMessage)
-                xmppChat.send(xmppMessage)
                 chatMessage.stanza_id = xmppMessage.stanzaId
                 chatMessage.id=chatRepository.addMessage(chatMessage)
                 chat.lastMessage = chatMessage.id!!
                 chat.lastUpdate = Calendar.getInstance().time
                 chatRepository.updateChat(chat)
+                xmppChat.send(xmppMessage)
             }
         }catch (e: Exception){
             e.printStackTrace()
@@ -568,12 +574,12 @@ class ChatXMPPConnector  @Inject constructor(
                 val xmppMessage=MessageBuilder.buildMessage()
                     .setBody(Gson().toJson(chatMessage)).build()
                 xmppMessage.stanzaId = IDUtils.generateMessageStanzaId(chatMessage)
-                xmppChat.send(xmppMessage)
                 chatMessage.stanza_id=xmppMessage.stanzaId
                 chatMessage.id=chatRepository.addMessage(chatMessage)
                 chat.lastMessage=chatMessage.id!!
                 chat.lastUpdate=Calendar.getInstance().time
                 chatRepository.updateChat(chat)
+                xmppChat.send(xmppMessage)
             }
         }catch (e: Exception){
             e.printStackTrace()
@@ -719,7 +725,8 @@ class ChatXMPPConnector  @Inject constructor(
                         chatRepository.createAnonymousContact(it)
                         contact=chatRepository.findContactByJid(it)
                     }
-                    val old=Gson().fromJson<ChatMessage>(message.body!!,ChatMessage::class.java)
+                    val gson = GsonBuilder().setDateFormat("MMM dd, yyyy HH:mm:ss").create()
+                    val old=gson.fromJson(message.body!!,ChatMessage::class.java)
                     if(old.messageType!=MessageType.SYSTEM){
                         var chat=chatRepository.findChatByJid(jidString)
                         if(chat==null){
@@ -784,10 +791,18 @@ class ChatXMPPConnector  @Inject constructor(
                                 val channel = NotificationChannel(chat.id.toString(), "chat-"+chat.id.toString(), importance)
                                 notificationManager.createNotificationChannel(channel)
                             }
+                            val resultIntent = Intent(context, DetailChatActivity::class.java)
+                            resultIntent.putExtra("contact", Gson().toJson(contact))
+                            val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(context).run {
+                                addNextIntentWithParentStack(resultIntent)
+                                getPendingIntent(0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+                            }
                             val builder = NotificationCompat.Builder(context, chat.id.toString())
                                 .setSmallIcon(com.cindaku.holanear.R.drawable.ic_notif)
                                 .setContentTitle(contact.fullName)
                                 .setContentText(lastMessage)
+                                .setContentIntent(resultPendingIntent)
                                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             notificationManager.notify(chat.id!!,builder.build())
                         }
@@ -829,17 +844,21 @@ class ChatXMPPConnector  @Inject constructor(
     override fun deliveredNotification(from: Jid?, packetID: String?) {
         packetID?.let {
             val message=chatRepository.getMessageByStanzaId(it)
-            message.isSent=true
-            message.sentDate=Calendar.getInstance().time
-            chatRepository.updateMessage(message)
+            message?.let {
+                message.isSent=true
+                message.sentDate=Calendar.getInstance().time
+                chatRepository.updateMessage(message)
+            }
         }
     }
 
     override fun displayedNotification(from: Jid?, packetID: String?) {
         packetID?.let {
             val message=chatRepository.getMessageByStanzaId(it)
-            message.isReaded=true
-            chatRepository.updateMessage(message)
+            message?.let {
+                message.isReaded=true
+                chatRepository.updateMessage(message)
+            }
         }
     }
 
@@ -848,10 +867,16 @@ class ChatXMPPConnector  @Inject constructor(
     }
 
     override fun checkConnectiom(){
-        if(xmpptcpConnection==null){
-            connect()
-        }else if(!xmpptcpConnection!!.isConnected){
-            xmpptcpConnection!!.connect()
+        try{
+            if(xmpptcpConnection==null){
+                connect()
+            }else{
+               if(!this.xmpptcpConnection!!.isConnected){
+                   xmpptcpConnection!!.connect()
+               }
+            }
+        }catch(e: Exception){
+            e.printStackTrace()
         }
     }
 

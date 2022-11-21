@@ -74,7 +74,7 @@ class ChatRepositoryImpl @Inject constructor(
         return chatMessageDao.findMessageByMessageId(message_id)
     }
 
-    override fun getMessageByStanzaId(stanza_id: String): ChatMessage {
+    override fun getMessageByStanzaId(stanza_id: String): ChatMessage? {
         return chatMessageDao.findMessageByStanzaId(stanza_id)
     }
 

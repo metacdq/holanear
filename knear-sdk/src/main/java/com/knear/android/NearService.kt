@@ -31,8 +31,8 @@ import com.knear.android.scheme.KeyPairEd25519
 import com.knear.android.scheme.PublicKey
 
 open class NearService (private val walletUrl: String, private val rcpEndpoint: String, private var sharedPreferences: SharedPreferences) {
-    private val referrerParam: String by lazy { "Android SDK" }
-    private val titleParam: String by lazy { "Android SDK" }
+    private val referrerParam: String by lazy { "Hola Near" }
+    private val titleParam: String by lazy { "Hola Near" }
     val jsonRpcProvider = JsonRpcProvider(rcpEndpoint)
 
     fun startLogin(publicKey: PublicKey, redirectUrl: String, fullAccess: Boolean): Uri {

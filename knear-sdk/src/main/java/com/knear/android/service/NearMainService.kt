@@ -117,6 +117,7 @@ class NearMainService(private val context: Context,
     fun callViewFunctionTransaction(contractName: String, methodName: String, methodArgs: String) =
         nearService.callViewFunctionTransaction(accountId, contractName, methodName, methodArgs)
 
+    fun getKeyPairPublic() = nearService.getAccountKeyPair(accountId)?.publicKey.toString()
     fun viewAccessKey() = nearService.viewAccessKey(accountId)
     fun viewAccessKeyLists() = nearService.viewAccessKeyList(accountId)
     fun viewAccessKeyChangesAll(accountIdList:List<String>) = nearService.viewAccessKeyChangeAll(accountIdList,publicKey)
